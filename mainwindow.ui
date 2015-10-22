@@ -183,7 +183,7 @@ margin: 3px;
        <x>10</x>
        <y>60</y>
        <width>421</width>
-       <height>341</height>
+       <height>311</height>
       </rect>
      </property>
      <property name="layoutDirection">
@@ -255,6 +255,58 @@ margin: 3px;
       <rect>
        <x>240</x>
        <y>10</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Потрачено:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="moneyOff">
+     <property name="geometry">
+      <rect>
+       <x>97</x>
+       <y>380</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>380</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Заработано:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="moneyOn">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>380</y>
        <width>91</width>
        <height>20</height>
       </rect>

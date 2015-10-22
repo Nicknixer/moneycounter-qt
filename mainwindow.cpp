@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(data,SIGNAL(message(QString)),this,SLOT(statusMsg(QString)));
     initCombo();
     drawTable();
-    //drawTableItems(6);
+
 
 }
 
@@ -71,9 +71,10 @@ void MainWindow::initCombo()
     dates.append("Год");
     dates.append("Все время");
     ui->comboDatesAgo->addItems(dates);
-    ui->comboDatesAgo->setCurrentIndex(6);
+    ui->comboDatesAgo->setCurrentIndex(3);
 }
 
+// Первоначальная настройка таблицы
 void MainWindow::drawTable()
 {
     ui->tableTransactions->setColumnCount(3);
@@ -81,6 +82,8 @@ void MainWindow::drawTable()
     list << "Деньги" << "Описание" << "Дата";
     ui->tableTransactions->setHorizontalHeaderLabels(list);
     ui->tableTransactions->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+
+    drawTableItems(3);
 }
 
 void MainWindow::drawTableItems(int period)
@@ -91,6 +94,9 @@ void MainWindow::drawTableItems(int period)
     qint64 dt, topDt;
     QDate tmpd;
     QDateTime tmpdd;
+    int mOn, mOff;
+    mOn = mOff = 0;
+
     topDt = QDateTime::currentMSecsSinceEpoch();
     switch(period)
     {
@@ -136,8 +142,16 @@ void MainWindow::drawTableItems(int period)
     ui->transactionsForTop->setText(QDateTime::fromMSecsSinceEpoch(topDt).toString("d-M-yy"));
     while(qr->next())
     {
-        if( (qr->value(3).toLongLong() >= dt) && (qr->value(3).toLongLong() < topDt))
+        if( (qr->value(3).toLongLong() >= dt) && (qr->value(3).toLongLong() < topDt)) // Если транзакция произошла в промежутке времени, то добавляем в таблицу
         {
+            if(qr->value(1).toInt() > 0)
+            {
+                mOn += qr->value(1).toInt(); // Фиксируем доход
+            }
+            else
+            {
+                mOff += qr->value(1).toInt(); // Фиксируем затраты
+            }
             qint64 dateTrans = qr->value(3).toLongLong();
 
             ui->tableTransactions->insertRow(ui->tableTransactions->rowCount());
@@ -147,6 +161,9 @@ void MainWindow::drawTableItems(int period)
             cortage++;
         }
     }
+    mOff *= -1;
+    ui->moneyOff->setText(QString::number(mOff));
+    ui->moneyOn->setText(QString::number(mOn));
 }
 
 void MainWindow::on_comboDatesAgo_activated(int index)
