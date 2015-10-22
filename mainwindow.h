@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <db.h>
 #include <QTableWidgetItem>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;

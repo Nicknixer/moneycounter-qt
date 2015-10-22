@@ -8,12 +8,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     cleanForm();
     setWindowTitle("Книга затрат");
+
     data = new db();
     connect(data,SIGNAL(message(QString)),this,SLOT(statusMsg(QString)));
+    data->connect("db.sqlite");
+
     initCombo();
     drawTable();
-
-
 }
 
 MainWindow::~MainWindow()
@@ -29,13 +30,20 @@ void MainWindow::cleanForm()
 
 void MainWindow::statusMsg(QString arg)
 {
-    ui->statusBar->showMessage(arg, 3000);
+    ui->statusBar->showMessage(arg, 5000);
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    data->addTransaction(ui->editMoney->value(), ui->editDescription->text());
-    cleanForm();
+    if(ui->editDescription->text().isEmpty())
+    {
+        QMessageBox::about(this, "Описание не должно быть пустым", "Пожалуйста, заполните поле Описание.");
+    }
+    else
+    {
+        data->addTransaction(ui->editMoney->value(), ui->editDescription->text());
+        cleanForm();
+    }
 }
 
 void MainWindow::on_lineMoneyOff_editingFinished()

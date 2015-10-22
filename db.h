@@ -14,11 +14,12 @@ class db : public QObject
     Q_OBJECT
 private:
     QSqlDatabase *data;
-    void connect();
     void sendMsg(QString arg);
     QSqlQuery *res;
 public:
     explicit db(QObject *parent = 0);
+
+    void connect(QString nameDb);
     void addTransaction(double price, QString desc);
     QSqlQuery *result();
 signals:
