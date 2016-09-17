@@ -1,3 +1,3 @@
-Simple CashBoock on C++/Qt5
+### Simple CashBook on C++/Qt5.
 
-Приложение для ведения учета расходов и доходов. 
+Mini ledger program. 
